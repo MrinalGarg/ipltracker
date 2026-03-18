@@ -7,6 +7,8 @@ import clsx from 'clsx';
 import PlayerCard from './components/PlayerCard';
 import StatChip from './components/StatChip';
 import SeasonTable from './components/SeasonTable';
+import Leaderboard from './components/Leaderboard';
+import SeasonTrend from './components/SeasonTrend';
 
 const sortOptions = [
   { value: 'runs', label: 'Most runs' },
@@ -162,6 +164,7 @@ export default function App() {
                       <StatChip icon={Activity} label="Fielding" value={selectedPlayer.career.catches} helper={`${selectedPlayer.career.stumpings} stumpings`} />
                     </div>
                   </div>
+                  <SeasonTrend seasons={selectedPlayer.seasons} />
                   <SeasonTable seasons={selectedPlayer.seasons} />
                 </>
               ) : (
@@ -169,6 +172,14 @@ export default function App() {
               )}
             </section>
           </div>
+
+          {summary ? (
+            <section className="grid gap-4 lg:grid-cols-3">
+              <Leaderboard title="All-time run leaders" statKey="runs" items={summary.topRuns} />
+              <Leaderboard title="All-time wicket leaders" statKey="wickets" items={summary.topWickets} />
+              <Leaderboard title="Best strike rates" statKey="strikeRate" items={summary.topStrikeRate} formatter={(value) => Number(value).toFixed(2)} />
+            </section>
+          ) : null}
         </div>
       </section>
     </main>
