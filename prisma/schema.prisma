@@ -1,0 +1,21 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://user@localhost:5432/viadb?schema=public"
+}
+
+model PlayerStat {
+  id            Int      @id @default(autoincrement())
+  playerSlug    String   @unique
+  playerName    String
+  team          String
+  role          String
+  seasons       Json
+  career        Json
+  imageUrl      String?
+  updatedAt     DateTime @updatedAt
+  createdAt     DateTime @default(now())
+}
